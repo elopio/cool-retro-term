@@ -1,0 +1,37 @@
+name: cool-retro-term
+version: master
+summary: A good looking terminal emulator which mimics the old cathode display.
+description: |
+  ool-retro-term is a terminal emulator which mimics the look and feel of the
+  old cathode tube screens. It has been designed to be eye-candy, customizable,
+  and reasonably lightweight.
+
+grade: devel # must be 'stable' to release into candidate/stable channels
+confinement: devmode
+
+apps:
+  cool-retro-term:
+    environment:
+      LD_LIBRARY_PATH: $LD_LIBRARY_PATH:$SNAP/usr/lib
+    command: bin/desktop-launch $SNAP/usr/bin/cool-retro-term
+
+parts:
+  cool-retro-term:
+    source: .
+    source-type: git
+    plugin: qmake
+    build-packages:
+      - qmlscene
+      - qt5-qmake
+      - qt5-default
+      - qtdeclarative5-dev
+    stage-packages:
+      - qml-module-qtquick-controls
+      - qtdeclarative5-qtquick2-plugin
+      - libqt5qml-graphicaleffects
+      - qml-module-qtquick-dialogs
+      - qtdeclarative5-localstorage-plugin
+      - qtdeclarative5-window-plugin
+      - libgdk-pixbuf2.0-0
+      - libqt5widgets5
+    after: [desktop-qt5]
